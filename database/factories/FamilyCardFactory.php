@@ -18,7 +18,15 @@ class FamilyCardFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'no_kk' => fake()->unique()->numerify('################'),
+            'address' => fake()->streetAddress(),
+            'rt' => fake()->numerify('###'),
+            'rw' => fake()->numerify('###'),
+            'village' => 'Kali Selatan',
+            'district' => 'Pineleng',
+            'regency' => 'Kabupaten Minahasa',
+            'province' => 'Sulawesi Utara',
+            'kk_path' => null,
         ];
     }
 }
