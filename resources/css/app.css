@@ -5,7 +5,7 @@
 @source '../../storage/framework/views/*.php';
 
 @theme {
-    --font-sans: "Inter", sans-serif;
+    --font-sans: "Plus Jakarta Sans", sans-serif;
     --color-primary: #B22222;
     --color-secondary: #1F2937;
     --color-accent: #D4AF37;

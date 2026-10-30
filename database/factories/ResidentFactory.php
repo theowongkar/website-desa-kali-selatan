@@ -60,6 +60,7 @@ class ResidentFactory extends Factory
                 'Pelajar',
                 'Ibu Rumah Tangga',
             ]),
+            'status' => 'Aktif',
             'ktp_path' => null,
         ];
     }

@@ -43,6 +43,13 @@ return new class extends Migration
             $table->integer('sort_order')->default(0);
             $table->timestamps();
         });
+
+        Schema::create('village_banners', function (Blueprint $table) {
+            $table->id();
+            $table->string('title', 200);
+            $table->string('image_path')->nullable();
+            $table->timestamps();
+        });
     }
 
     /**
@@ -50,6 +57,7 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::dropIfExists('village_banners');
         Schema::dropIfExists('village_profiles');
         Schema::dropIfExists('village_officials');
     }

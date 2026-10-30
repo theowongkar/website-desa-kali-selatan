@@ -12,7 +12,6 @@ use Spatie\Sluggable\Attributes\Sluggable;
     'post_category_id',
     'title',
     'slug',
-    'excerpt',
     'content',
     'thumbnail_path',
     'status',

@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('district', 100);
             $table->string('regency', 100);
             $table->string('province', 100);
+            $table->enum('status', ['Aktif', 'Tidak Aktif'])->default('Aktif');
             $table->string('kk_path')->nullable();
             $table->timestamps();
         });
@@ -31,7 +32,7 @@ return new class extends Migration
 
             $table->foreignId('family_card_id')
                 ->constrained('family_cards')
-                ->restrictOnDelete();
+                ->cascadeOnDelete();
 
             $table->string('name', 200);
             $table->string('place_of_birth', 100);
@@ -41,6 +42,7 @@ return new class extends Migration
             $table->string('religion', 50);
             $table->enum('marital_status', ['Belum Kawin', 'Kawin', 'Cerai Hidup', 'Cerai Mati']);
             $table->string('occupation', 50);
+            $table->enum('status', ['Aktif', 'Pindah', 'Meninggal'])->default('Aktif');
             $table->string('ktp_path')->nullable();
             $table->timestamps();
         });

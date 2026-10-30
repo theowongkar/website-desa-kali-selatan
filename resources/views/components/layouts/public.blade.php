@@ -27,19 +27,19 @@
 <body class="font-sans">
     <div class="flex flex-col min-h-screen">
         {{-- Navbar --}}
-        <nav class="sticky top-0 z-20 border-b border-gray-600 bg-primary" x-data="{ open: false }" x-cloak>
-            <div aria-label="Navigasi utama" class="container mx-auto py-3 px-4 sm:px-6 lg:px-8">
+        <nav class="sticky top-0 z-30 border-b border-gray-600 bg-primary/95 shadow-lg" x-data="{ open: false }" x-cloak>
+            <div aria-label="Navigasi utama" class="container mx-auto py-2 px-4 sm:px-6 lg:px-8">
                 <div class="flex items-center justify-between">
                     {{-- Logo dan Identitas Desa --}}
                     <a href="{{ route('home') }}" class="flex items-center gap-2"
                         aria-label="Beranda Desa Kali Selatan">
                         <img src="{{ asset('assets/images/minahasa-logo.png') }}" alt="Logo Desa Kali Selatan"
-                            class="size-10 md:size-13 object-contain">
+                            class="size-10 object-contain">
                         <div class="flex flex-col">
-                            <span class="truncate text-sm font-bold tracking-tight leading-tight text-white sm:text-lg">
+                            <span class="truncate text-sm font-bold tracking-tight leading-tight text-white sm:text-md">
                                 Desa Kali Selatan
                             </span>
-                            <span class="text-xs text-gray-200 sm:text-sm">
+                            <span class="text-xs text-gray-200">
                                 Kabupaten Minahasa
                             </span>
                         </div>
@@ -67,11 +67,11 @@
                         class="absolute left-0 right-0 top-full px-4 py-4 bg-white shadow-lg
                         lg:static lg:block lg:border-0 lg:bg-transparent
                         lg:p-0 lg:shadow-none">
-                        <ul class="flex flex-col gap-4 lg:gap-6 lg:flex-row lg:items-center">
+                        <ul class="flex flex-col gap-4 lg:flex-row lg:items-center">
                             <li @click="open = false">
                                 <a href="{{ route('home') }}"
                                     class="block
-                                  font-medium text-primary lg:text-gray-100
+                                  font-medium text-primary text-sm lg:text-gray-100
                                   lg:bg-transparent lg:hover:opacity-80 transition duration-200 {{ Route::is('home') ? 'animate-pulse' : 'border-transparent text-primary lg:text-gray-100' }}">
                                     Beranda
                                 </a>
@@ -79,7 +79,7 @@
                             <li @click="open = false">
                                 <a href="#"
                                     class="block
-                                  font-medium text-primary lg:text-gray-100
+                                  font-medium text-primary text-sm lg:text-gray-100
                                   lg:bg-transparent lg:hover:opacity-80 transition duration-200 {{ Route::is('#') ? 'animate-pulse' : 'border-transparent text-primary lg:text-gray-100' }}">
                                     Profil Desa
                                 </a>
@@ -87,7 +87,7 @@
                             <li @click="open = false">
                                 <a href="#"
                                     class="block
-                                  font-medium text-primary lg:text-gray-100
+                                  font-medium text-primary text-sm lg:text-gray-100
                                   lg:bg-transparent lg:hover:opacity-80 transition duration-200 {{ Route::is('#') ? 'animate-pulse' : 'border-transparent text-primary lg:text-gray-100' }}">
                                     Infografis
                                 </a>
@@ -95,16 +95,16 @@
                             <li @click="open = false">
                                 <a href="#"
                                     class="block
-                                  font-medium text-primary lg:text-gray-100
+                                  font-medium text-primary text-sm lg:text-gray-100
                                   lg:bg-transparent lg:hover:opacity-80 transition duration-200 {{ Route::is('#') ? 'animate-pulse' : 'border-transparent text-primary lg:text-gray-100' }}">
                                     Postingan
                                 </a>
                             </li>
                             <li @click="open = false">
                                 <a href="#"
-                                    class="flex items-center justify-center rounded-lg
-                                  bg-accent px-5 py-2 font-medium
-                                  text-gray-100 transition hover:bg-secondary">
+                                    class="flex items-center justify-center rounded-full
+                                  bg-accent px-4 py-1 font-bold text-sm
+                                  text-secondary transition hover:bg-secondary hover:text-accent">
                                     Login
                                 </a>
                             </li>
@@ -115,7 +115,7 @@
         </nav>
 
         {{-- Layout Utama --}}
-        <main class="flex-1 bg-gray-100">
+        <main class="flex-1">
             {{ $slot }}
         </main>
 

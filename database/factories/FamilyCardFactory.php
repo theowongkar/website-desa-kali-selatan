@@ -26,7 +26,9 @@ class FamilyCardFactory extends Factory
             'district' => 'Pineleng',
             'regency' => 'Kabupaten Minahasa',
             'province' => 'Sulawesi Utara',
+            'status' => 'Aktif',
             'kk_path' => null,
+            'head_of_family_id' => null,
         ];
     }
 }

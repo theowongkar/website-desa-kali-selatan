@@ -7,6 +7,7 @@ use App\Models\Post;
 use App\Models\PostCategory;
 use App\Models\Resident;
 use App\Models\User;
+use App\Models\VillageBanner;
 use App\Models\VillageOfficial;
 use App\Models\VillageProfile;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -41,11 +42,24 @@ class DatabaseSeeder extends Seeder
             'role' => 'Operator',
         ]);
 
-        // Kartu Keluarga
-        FamilyCard::factory(10)->create();
+        // Membuat 10 kartu keluarga
+        FamilyCard::factory(10)->create()->each(function ($familyCard) {
 
-        // Penduduk
-        Resident::factory(30)->create();
+            // Membuat 1 penduduk sebagai kepala keluarga
+            $headOfFamily = Resident::factory()->create([
+                'family_card_id' => $familyCard->id,
+            ]);
+
+            // Menetapkan kepala keluarga
+            $familyCard->update([
+                'head_of_family_id' => $headOfFamily->id,
+            ]);
+
+            // Membuat 2-4 penduduk tambahan dalam KK
+            Resident::factory(fake()->numberBetween(2, 4))->create([
+                'family_card_id' => $familyCard->id,
+            ]);
+        });
 
         // Profil Desa
         VillageProfile::factory()->create();
@@ -69,6 +83,9 @@ class DatabaseSeeder extends Seeder
                 'sort_order' => $sortOrder,
             ]);
         }
+
+        // Banner Desa
+        VillageBanner::factory(3)->create();
 
         // Kategori Postingan
         $postCategories = [

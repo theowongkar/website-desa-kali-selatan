@@ -27,7 +27,6 @@ class PostFactory extends Factory
             'post_category_id' => PostCategory::inRandomOrder()->value('id'),
             'title' => $title,
             'slug' => Str::slug($title),
-            'excerpt' => fake()->paragraph(),
             'content' => fake()->paragraphs(5, true),
             'thumbnail_path' => null,
             'status' => fake()->randomElement([

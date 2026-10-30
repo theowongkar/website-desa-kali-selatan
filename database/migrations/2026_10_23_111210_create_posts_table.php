@@ -32,7 +32,6 @@ return new class extends Migration
 
             $table->string('title', 150);
             $table->string('slug', 200)->unique();
-            $table->text('excerpt')->nullable();
             $table->longText('content');
             $table->string('thumbnail_path')->nullable();
             $table->enum('status', ['Draf', 'Terbit', 'Arsip'])->default('Draf');

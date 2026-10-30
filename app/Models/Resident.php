@@ -17,6 +17,7 @@ use Illuminate\Database\Eloquent\Model;
     'religion',
     'marital_status',
     'occupation',
+    'status',
     'ktp_path',
 ])]
 class Resident extends Model
