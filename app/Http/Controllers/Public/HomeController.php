@@ -13,7 +13,7 @@ use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    public function index()
+    public function home()
     {
         // Judul Halaman
         $title = "Beranda";
@@ -46,5 +46,19 @@ class HomeController extends Controller
         $posts = Post::with('category')->where('status', 'Terbit')->latest()->take(4)->get();
 
         return view('pages.public.home', compact('title', 'villageBanners', 'villageHead', 'villageProfile', 'villageOfficials', 'totalResidents', 'totalMaleResidents', 'totalFemaleResidents', 'totalHeadOfFamily', 'posts'));
+    }
+
+    public function about()
+    {
+        // Judul Halaman
+        $title = "Profil Desa";
+
+        // Profil Desa
+        $villageProfile = VillageProfile::first();
+
+        // Struktur Organisasi
+        $villageOfficials = VillageOfficial::orderBy('sort_order', 'ASC')->get();
+
+        return view('pages.public.about', compact('title', 'villageProfile', 'villageOfficials'));
     }
 }

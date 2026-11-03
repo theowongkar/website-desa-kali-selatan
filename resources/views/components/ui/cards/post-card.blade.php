@@ -26,7 +26,7 @@
         </h3>
 
         {{-- Konten --}}
-        <p class="text-sm font-medium text-gray-800 line-clamp-3">
+        <p class="text-sm font-medium text-gray-600 line-clamp-3">
             {{ $post->content }}
         </p>
 

@@ -7,70 +7,99 @@
     <div
         class="bg-[radial-gradient(ellipse_at_top_left,rgba(178,34,34,0.1),transparent_50%),radial-gradient(ellipse_at_bottom_right,rgba(212,175,55,0.3),transparent_50%),radial-gradient(rgba(156,163,175,0.3)_1px,transparent_1px)] [background-size:auto,auto,20px_20px]">
         {{-- Hero Image --}}
+
         <section>
-            <div x-data="{ active: 0 }" class="relative h-[calc(100svh-50px)] w-full overflow-hidden">
-                {{-- Gambar --}}
+            <div x-data="{
+                active: 0,
+                total: {{ $villageBanners->count() }},
+                timer: null,
+            
+                next() {
+                    this.active = (this.active + 1) % this.total;
+                },
+            
+                prev() {
+                    this.active = (this.active - 1 + this.total) % this.total;
+                }
+            }" x-init="if (total > 1) {
+                timer = setInterval(() => {
+                    next();
+                }, 7000);
+            }"
+                class="relative h-[calc(100svh-50px)] w-full overflow-hidden">
+                {{-- Gambar Banner --}}
                 @forelse ($villageBanners as $villageBanner)
-                    <div x-show="active === {{ $loop->index }}" class="absolute inset-0">
+                    <div class="absolute inset-0 transition-opacity duration-1000 ease-in-out"
+                        :class="active === {{ $loop->index }} ?
+                            'opacity-100 z-10' :
+                            'opacity-0 z-0'">
                         <img src="{{ $villageBanner->image_path
                             ? asset('storage/' . $villageBanner->image_path)
                             : asset('assets/images/image-placeholder.jpg') }}"
-                            alt="{{ $villageBanner->title ?? 'Banner Desa Kali Selatan' }}"
-                            class="h-full w-full object-cover">
-                        <div class="absolute inset-0 bg-black/50"></div>
+                            alt="{{ $villageBanner->title ?? 'Banner Desa' . $villageProfile->village }}"
+                            class="h-full w-full object-cover object-center">
+                        <div class="absolute inset-0 bg-black/70"></div>
                     </div>
                 @empty
                     <div class="absolute inset-0">
-                        <img src="{{ asset('assets/images/image-placeholder.jpg') }}" alt="Banner Desa Kali Selatan"
-                            class="h-full w-full object-cover">
-
-                        <div class="absolute inset-0 bg-black/50"></div>
+                        <img src="{{ asset('assets/images/image-placeholder.jpg') }}"
+                            alt="Banner Desa {{ $villageProfile->village }}"
+                            class="h-full w-full object-cover object-center">
+                        <div class="absolute inset-0 bg-black/70"></div>
                     </div>
                 @endforelse
 
                 {{-- Judul --}}
                 <div class="absolute inset-0 z-10 flex flex-col items-center justify-center px-6">
-                    <span
-                        class="text-xl font-light text-white uppercase tracking-widest sm:text-3xl lg:text-4xl">Sitemandesa</span>
+                    <span class="text-xl font-light text-white uppercase tracking-widest sm:text-3xl lg:text-4xl">
+                        Sitemandesa
+                    </span>
                     <h1 class="mt-1 mb-3 text-2xl font-bold text-white uppercase sm:text-4xl lg:text-5xl">
-                        Desa Kali Selatan
+                        Desa {{ $villageProfile->village }}
                     </h1>
-                    <i class="text-sm font-light text-white sm:text-xl lg:text2xl">Perluas Jangkauan,
+                    <i class="text-sm font-light text-white sm:text-xl lg:text-2xl">
+                        Perluas Jangkauan,
                         Lakukan Percepatan Pelayanan Dengan
                         <span
-                            class="inline-block px-2 py-0.5 bg-primary text-xs font-medium rounded-lg sm:text-lg lg:text-xl">smart
-                            system
-                            terintegrasi</span></i>
+                            class="inline-block px-2 py-0.5 bg-primary text-xs font-medium rounded-lg sm:text-lg lg:text-xl">
+                            smart system terintegrasi
+                        </span>
+                    </i>
                 </div>
 
                 {{-- Tombol Navigasi --}}
                 @if ($villageBanners->count() > 1)
-                    <button
-                        @click="active = (active - 1 + {{ $villageBanners->count() }}) % {{ $villageBanners->count() }}"
-                        type="button"
+                    {{-- Previous --}}
+                    <button @click="prev()" type="button"
                         class="absolute left-3 top-1/2 z-20 -translate-y-1/2 rounded-full bg-primary/40 p-2 text-secondary cursor-pointer"
-                        aria-label="Tombol Sebelumnya">
+                        aria-label="Banner Sebelumnya">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="size-5">
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
                         </svg>
                     </button>
-                    <button @click="active = (active + 1) % {{ $villageBanners->count() }}"
+
+                    {{-- Next --}}
+                    <button @click="next()" type="button"
                         class="absolute right-3 top-1/2 z-20 -translate-y-1/2 rounded-full bg-primary/40 p-2 text-secondary cursor-pointer"
-                        aria-label="Tombol Selanjutnya">
+                        aria-label="Banner Selanjutnya">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="size-5">
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
                         </svg>
                     </button>
+
+                    {{-- Dot Indicator --}}
                     <div class="absolute bottom-4 left-1/2 z-20 flex -translate-x-1/2 gap-3">
                         @foreach ($villageBanners as $banner)
                             <button @click="active = {{ $loop->index }}" type="button"
-                                class="size-2 rounded-full cursor-pointer"
-                                :class="active === {{ $loop->index }} ? 'bg-primary' : 'bg-primary/50'"
-                                aria-label="Tombol Dot"></button>
+                                class="size-2 rounded-full cursor-pointer transition-all duration-300"
+                                :class="active === {{ $loop->index }} ?
+                                    'bg-primary scale-125' :
+                                    'bg-primary/50'"
+                                aria-label="Banner {{ $loop->iteration }}"></button>
                         @endforeach
                     </div>
                 @endif
@@ -80,7 +109,7 @@
         {{-- Jelajahi Desa --}}
         <x-layouts.container>
             <div class="grid gap-8 md:grid-cols-5 md:gap-10">
-                {{-- Header Content --}}
+                {{-- Header Konten --}}
                 <div class="md:col-span-2 flex flex-col justify-center">
                     <x-ui.texts.public-title title="Jelajahi Desa" />
                     <x-ui.texts.public-paragraph
@@ -89,7 +118,7 @@
                             demografi, potensi Desa, dan juga berita tentang Desa." />
                 </div>
 
-                {{-- Isi Content --}}
+                {{-- Isi Konten --}}
                 <div class="md:col-span-3">
                     <div class="grid grid-cols-2 gap-5">
                         <a href="#"
@@ -177,7 +206,7 @@
                         <h3 class="text-xl font-semibold">
                             {{ $villageHead->name }}
                         </h3>
-                        <p class="mt-1 text-sm font-medium text-gray-800">
+                        <p class="mt-1 text-sm font-medium text-gray-600">
                             {{ $villageHead->position }} {{ $villageProfile->village }}
                         </p>
                     </div>
@@ -210,10 +239,8 @@
             <div
                 class="group relative w-full overflow-hidden rounded-2xl border border-gray-200 bg-white p-2 shadow-lg">
                 <div class="w-full h-80 overflow-hidden rounded-xl sm:h-96">
-                    <iframe
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d997.157319852179!2d124.84343986947964!3d1.3988471406173326!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x328773be092a4cd9%3A0xe0618459624f7b36!2sKantor%20Desa%20Kali%20Selatan!5e0!3m2!1sid!2sid!4v1793114809492!5m2!1sid!2sid"
-                        class="w-full h-full border-0" loading="lazy" allowfullscreen
-                        referrerpolicy="strict-origin-when-cross-origin">
+                    <iframe src="{{ $villageProfile->maps }}" class="w-full h-full border-0" loading="lazy"
+                        allowfullscreen referrerpolicy="strict-origin-when-cross-origin">
                     </iframe>
                 </div>
             </div>
@@ -250,7 +277,7 @@
                         {{-- Informasi --}}
                         <div class="p-5 text-center">
                             <h3
-                                class="text-lg font-bold
+                                class="text-sm sm:text-md lg:text-lg font-bold
                                    transition group-hover:text-primary">
                                 {{ $villageOfficial->name }}
                             </h3>

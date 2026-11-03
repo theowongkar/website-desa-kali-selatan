@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('province', 100);
             $table->text('address');
             $table->string('postal_code', 5);
+            $table->text('maps');
             $table->string('phone', 15)->nullable();
             $table->string('email', 100)->nullable();
             $table->string('website', 100)->nullable();
@@ -28,6 +29,7 @@ return new class extends Migration
             $table->string('instagram', 100)->nullable();
             $table->string('facebook', 100)->nullable();
             $table->string('logo_path')->nullable();
+            $table->string('photo_path')->nullable();
             $table->text('description');
             $table->longText('history');
             $table->text('vision');

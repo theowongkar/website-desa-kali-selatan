@@ -77,10 +77,10 @@
                                 </a>
                             </li>
                             <li @click="open = false">
-                                <a href="#"
+                                <a href="{{ route('about') }}"
                                     class="block
                                   font-medium text-primary text-sm lg:text-gray-100
-                                  lg:bg-transparent lg:hover:opacity-80 transition duration-200 {{ Route::is('#') ? 'animate-pulse' : 'border-transparent text-primary lg:text-gray-100' }}">
+                                  lg:bg-transparent lg:hover:opacity-80 transition duration-200 {{ Route::is('about') ? 'animate-pulse' : 'border-transparent text-primary lg:text-gray-100' }}">
                                     Profil Desa
                                 </a>
                             </li>
@@ -221,7 +221,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="#" class="transition hover:opacity-75">
+                                <a href="{{ route('about') }}" class="transition hover:opacity-75">
                                     Profil Desa
                                 </a>
                             </li>
