@@ -21,7 +21,7 @@
     <div class="p-5 space-y-4">
 
         {{-- Judul --}}
-        <h3 class="text-lg font-bold leading-tight line-clamp-2">
+        <h3 class="text-lg font-bold leading-tight line-clamp-1">
             {{ $post->title }}
         </h3>
 
