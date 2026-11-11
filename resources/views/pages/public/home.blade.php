@@ -7,7 +7,6 @@
     <div
         class="bg-[radial-gradient(ellipse_at_top_left,rgba(178,34,34,0.1),transparent_50%),radial-gradient(ellipse_at_bottom_right,rgba(212,175,55,0.3),transparent_50%),radial-gradient(rgba(156,163,175,0.3)_1px,transparent_1px)] [background-size:auto,auto,20px_20px]">
         {{-- Hero Image --}}
-
         <section>
             <div x-data="{
                 active: 0,
@@ -111,7 +110,7 @@
             <div class="grid gap-8 md:grid-cols-5 md:gap-10">
                 {{-- Header Konten --}}
                 <div class="md:col-span-2 flex flex-col justify-center">
-                    <x-ui.texts.public-title title="Jelajahi Desa" />
+                    <x-ui.texts.public-title title="Jelajahi Desa" class="uppercase" />
                     <x-ui.texts.public-paragraph
                         content="Melalui website ini Anda dapat menjelajahi segala hal yang
                             terkait dengan Desa. Aspek pemerintahan, penduduk,
@@ -121,7 +120,7 @@
                 {{-- Isi Konten --}}
                 <div class="md:col-span-3">
                     <div class="grid grid-cols-2 gap-5">
-                        <a href="#"
+                        <a href="{{ route('about') }}"
                             class="group overflow-hidden flex flex-col items-center justify-center
                               rounded-xl bg-white p-5 shadow-sm ring-1 ring-gray-200 transition duration-300 hover:-translate-y-1
                               hover:shadow-md">
@@ -156,7 +155,6 @@
                                 <path stroke-linecap="round" stroke-linejoin="round"
                                     d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 0 0 2.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 0 0-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25ZM6.75 12h.008v.008H6.75V12Zm0 3h.008v.008H6.75V15Zm0 3h.008v.008H6.75V18Z" />
                             </svg>
-
                             <span class="mt-4 font-semibold uppercase">
                                 Formulir Online
                             </span>
@@ -195,12 +193,11 @@
 
                 {{-- Teks Kepala Desa --}}
                 <div class="md:col-span-3">
-                    <span class="inline-block rounded-full bg-accent px-4 py-1.5 text-sm font-semibold">
+                    <x-ui.badges.badge variant="accent">
                         Sambutan
-                    </span>
-                    <h2 class="my-4 text-2xl font-bold text-primary lg:text-3xl">
-                        Sambutan Kepala Desa {{ $villageProfile->village }}
-                    </h2>
+                    </x-ui.badges.badge>
+                    <x-ui.texts.public-title title="Sambutan Kepala Desa {{ $villageProfile->village }}"
+                        class="my-4" />
                     <div class="h-1 w-16 rounded-full bg-primary"></div>
                     <div class="mt-5">
                         <h3 class="text-xl font-semibold">
@@ -230,7 +227,7 @@
         <x-layouts.container>
             {{-- Header Konten --}}
             <div class="flex flex-col justify-center items-center mb-5 text-center">
-                <x-ui.texts.public-title title="Peta Desa" />
+                <x-ui.texts.public-title title="Peta Desa" class="uppercase" />
                 <x-ui.texts.public-paragraph
                     content="Menampilkan Peta Desa Dengan Interest Point Desa {{ $villageProfile->village }}." />
             </div>
@@ -250,7 +247,7 @@
         <x-layouts.container>
             {{-- Header Konten --}}
             <div class="flex flex-col justify-center items-center mb-5 text-center">
-                <x-ui.texts.public-title title="SOTK" />
+                <x-ui.texts.public-title title="SOTK" class="uppercase" />
                 <x-ui.texts.public-paragraph
                     content="Struktur Organisasi dan Tata Kerja Desa {{ $villageProfile->village }}" />
             </div>
@@ -259,43 +256,13 @@
             <div class="grid grid-cols-2 gap-2 sm:gap-4 lg:gap-6
                     lg:grid-cols-4">
                 @foreach ($villageOfficials as $villageOfficial)
-                    <x-ui.cards.card>
-                        {{-- Foto --}}
-                        <div class="relative h-64 overflow-hidden bg-gray-100">
-                            <img src="{{ $villageOfficial->photo_path
-                                ? asset('storage/' . $villageOfficial->photo_path)
-                                : asset('assets/images/profile-placeholder.jpg') }}"
-                                alt="Foto {{ $villageOfficial->name }}"
-                                class="w-full h-full object-cover object-top
-                                   transition duration-500
-                                   group-hover:scale-105">
-                            {{-- Overlay --}}
-                            <div
-                                class="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/50 to-transparent">
-                            </div>
-                        </div>
-                        {{-- Informasi --}}
-                        <div class="p-5 text-center">
-                            <h3
-                                class="text-sm sm:text-md lg:text-lg font-bold
-                                   transition group-hover:text-primary">
-                                {{ $villageOfficial->name }}
-                            </h3>
-                            <div
-                                class="mx-auto my-3 h-1 w-10
-                                    rounded-full bg-primary">
-                            </div>
-                            <p class="text-sm font-medium text-gray-800">
-                                {{ $villageOfficial->position }}
-                            </p>
-                        </div>
-                    </x-ui.cards.card>
+                    <x-ui.cards.village-official-card :village-official="$villageOfficial" />
                 @endforeach
             </div>
 
             {{-- Selengkapnya --}}
             <div class="mt-6 flex justify-center">
-                <a href="#" class="flex justify-center items-center gap-2">
+                <a href="{{ route('about') }}#sotk" class="flex justify-center items-center gap-2">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="size-6">
                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -313,7 +280,7 @@
         <x-layouts.container>
             {{-- Header Konten --}}
             <div class="flex flex-col mb-5">
-                <x-ui.texts.public-title title="Infografis Penduduk" />
+                <x-ui.texts.public-title title="Infografis Penduduk" class="uppercase" />
                 <x-ui.texts.public-paragraph
                     content="Sistem digital yang berfungsi mempermudah pengelolaan data dan informasi terkait dengan kependudukan dan pendayagunaannya untuk pelayanan publik yang efektif dan efisien." />
             </div>
@@ -374,7 +341,7 @@
         <x-layouts.container>
             {{-- Header Konten --}}
             <div class="flex flex-col justify-center items-center mb-5 text-center">
-                <x-ui.texts.public-title title="Postingan" />
+                <x-ui.texts.public-title title="Postingan" class="uppercase" />
                 <x-ui.texts.public-paragraph
                     content="Menyajikan informasi terbaru tentang peristiwa, berita terkini, dan artikel-artikel jurnalistik dari Desa {{ $villageProfile->village }}" />
             </div>
@@ -387,6 +354,21 @@
                     <x-ui.alerts.empty-state title="Belum ada postingan" message="Postingan desa belum tersedia."
                         class="col-span-full" />
                 @endforelse
+            </div>
+
+            {{-- Selengkapnya --}}
+            <div class="mt-6 flex justify-center">
+                <a href="{{ route('post.index') }}" class="flex justify-center items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                    </svg>
+                    <span class="text-sm font-semibold leading-6 uppercase sm:text-base">Lihat postingan lebih
+                        lengkap</span>
+                </a>
             </div>
         </x-layouts.container>
     </div>

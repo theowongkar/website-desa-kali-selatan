@@ -71,32 +71,32 @@
                             <li @click="open = false">
                                 <a href="{{ route('home') }}"
                                     class="block
-                                  font-medium text-primary text-sm lg:text-gray-100
-                                  lg:bg-transparent lg:hover:opacity-80 transition duration-200 {{ Route::is('home') ? 'animate-pulse' : 'border-transparent text-primary lg:text-gray-100' }}">
+                                  font-medium text-black text-sm lg:text-gray-100
+                                  lg:bg-transparent lg:hover:opacity-80 transition duration-200 {{ Route::is('home') ? 'animate-pulse' : 'border-transparent lg:text-gray-100' }}">
                                     Beranda
                                 </a>
                             </li>
                             <li @click="open = false">
                                 <a href="{{ route('about') }}"
                                     class="block
-                                  font-medium text-primary text-sm lg:text-gray-100
-                                  lg:bg-transparent lg:hover:opacity-80 transition duration-200 {{ Route::is('about') ? 'animate-pulse' : 'border-transparent text-primary lg:text-gray-100' }}">
+                                  font-medium text-black text-sm lg:text-gray-100
+                                  lg:bg-transparent lg:hover:opacity-80 transition duration-200 {{ Route::is('about') ? 'animate-pulse' : 'border-transparent lg:text-gray-100' }}">
                                     Profil Desa
                                 </a>
                             </li>
                             <li @click="open = false">
                                 <a href="#"
                                     class="block
-                                  font-medium text-primary text-sm lg:text-gray-100
-                                  lg:bg-transparent lg:hover:opacity-80 transition duration-200 {{ Route::is('#') ? 'animate-pulse' : 'border-transparent text-primary lg:text-gray-100' }}">
+                                  font-medium text-black text-sm lg:text-gray-100
+                                  lg:bg-transparent lg:hover:opacity-80 transition duration-200 {{ Route::is('#') ? 'animate-pulse' : 'border-transparent lg:text-gray-100' }}">
                                     Infografis
                                 </a>
                             </li>
                             <li @click="open = false">
-                                <a href="#"
+                                <a href="{{ route('post.index') }}"
                                     class="block
-                                  font-medium text-primary text-sm lg:text-gray-100
-                                  lg:bg-transparent lg:hover:opacity-80 transition duration-200 {{ Route::is('#') ? 'animate-pulse' : 'border-transparent text-primary lg:text-gray-100' }}">
+                                  font-medium text-black text-sm lg:text-gray-100
+                                  lg:bg-transparent lg:hover:opacity-80 transition duration-200 {{ Route::is('post.*') ? 'animate-pulse' : 'border-transparent lg:text-gray-100' }}">
                                     Postingan
                                 </a>
                             </li>
@@ -231,7 +231,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="#" class="transition hover:opacity-75">
+                                <a href="{{ route('post.index') }}" class="transition hover:opacity-75">
                                     Postingan
                                 </a>
                             </li>

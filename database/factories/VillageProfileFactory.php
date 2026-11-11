@@ -18,7 +18,7 @@ class VillageProfileFactory extends Factory
     public function definition(): array
     {
         return [
-            'code' => fake()->optional()->numerify('##########'),
+            'code' => '71.02.13.2016',
             'village' => 'Kali Selatan',
             'district' => 'Pineleng',
             'regency' => 'Kabupaten Minahasa',

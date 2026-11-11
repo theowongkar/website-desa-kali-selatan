@@ -6,8 +6,7 @@
 <div
     {{ $attributes->class([
         'flex flex-col items-center justify-center',
-        'rounded-2xl border border-dashed border-gray-300',
-        'bg-secondary/5',
+        'rounded-2xl bg-white border border-dashed border-gray-300',
         'px-6 py-8 text-center',
     ]) }}>
     {{-- Ikon --}}

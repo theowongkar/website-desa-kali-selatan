@@ -11,7 +11,7 @@
     {{-- Konten Dropdown --}}
     <div x-cloak x-show="open" @click.outside="open = false" @keydown.escape.window="open = false" x-transition
         @class([
-            'absolute z-30 mt-2 rounded-xl border border-gray-200 bg-white p-4 shadow-sm space-y-3',
+            'absolute z-30 mt-2 rounded-xl bg-white shadow-sm ring-1 ring-gray-200 p-4 space-y-3',
             $width,
             'right-0' => $align === 'right',
             'left-0' => $align === 'left',

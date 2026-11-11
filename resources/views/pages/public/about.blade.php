@@ -4,22 +4,21 @@
     <x-slot name="title">{{ $title }}</x-slot>
 
     {{-- Halaman Profil Desa --}}
-    <div
-        class="bg-[radial-gradient(ellipse_at_top_left,rgba(178,34,34,0.1),transparent_50%),radial-gradient(ellipse_at_bottom_right,rgba(212,175,55,0.3),transparent_50%),radial-gradient(rgba(156,163,175,0.3)_1px,transparent_1px)] [background-size:auto,auto,20px_20px]">
+    <div class="bg-gray-100">
         {{-- Visi dan Misi --}}
         <x-layouts.container class="flex flex-col justify-center items-center gap-5 mx-0">
             {{-- Visi --}}
             <div>
-                <x-ui.cards.card class="w-full max-w-2xl p-5">
-                    <x-ui.texts.public-title title="Visi" class="text-center" />
+                <x-ui.cards.card class="w-full max-w-3xl p-5">
+                    <x-ui.texts.public-title title="Visi" class="text-center uppercase" />
                     <x-ui.texts.public-paragraph content="{!! $villageProfile->vision !!}" class="text-center" />
                 </x-ui.cards.card>
             </div>
 
             {{-- Misi --}}
             <div>
-                <x-ui.cards.card class="w-full max-w-2xl p-5">
-                    <x-ui.texts.public-title title="Misi" class="text-center" />
+                <x-ui.cards.card class="w-full max-w-3xl p-5">
+                    <x-ui.texts.public-title title="Misi" class="text-center uppercase" />
                     <x-ui.texts.public-paragraph content="{!! $villageProfile->mission !!}" />
                 </x-ui.cards.card>
             </div>
@@ -28,7 +27,7 @@
         {{-- Sejarah Desa --}}
         <x-layouts.container>
             {{-- Header Konten --}}
-            <x-ui.texts.public-title title="Deskripsi & Sejarah Desa" />
+            <x-ui.texts.public-title title="Deskripsi & Sejarah Desa" class="uppercase" />
 
             {{-- Isi Konten --}}
             <div class="grid gap-8 md:grid-cols-5 md:gap-10">
@@ -41,7 +40,6 @@
                             class="w-full h-full object-cover object-center transition duration-500 hover:scale-105">
                     </div>
                 </div>
-
                 <div class="md:col-span-2">
                     <div class="mt-5 rounded-lg border-l-4 border-primary bg-primary/4 p-5">
                         <x-ui.texts.public-paragraph content="{!! $villageProfile->history !!}" />
@@ -51,10 +49,10 @@
         </x-layouts.container>
 
         {{-- Struktur Organisasi --}}
-        <x-layouts.container>
+        <x-layouts.container id="sotk">
             {{-- Header Konten --}}
             <div class="flex flex-col justify-center items-center mb-5 text-center">
-                <x-ui.texts.public-title title="SOTK" />
+                <x-ui.texts.public-title title="SOTK" class="uppercase" />
                 <x-ui.texts.public-paragraph
                     content="Struktur Organisasi dan Tata Kerja Desa {{ $villageProfile->village }}" />
             </div>
@@ -63,36 +61,7 @@
             <div class="grid grid-cols-2 gap-2 sm:gap-4 lg:gap-6
                     lg:grid-cols-3">
                 @foreach ($villageOfficials as $villageOfficial)
-                    <x-ui.cards.card>
-                        {{-- Foto --}}
-                        <div class="relative h-64 overflow-hidden bg-gray-100">
-                            <img src="{{ $villageOfficial->photo_path
-                                ? asset('storage/' . $villageOfficial->photo_path)
-                                : asset('assets/images/profile-placeholder.jpg') }}"
-                                alt="Foto {{ $villageOfficial->name }}"
-                                class="w-full h-full object-cover object-top
-                                   transition duration-500
-                                   group-hover:scale-105">
-                            {{-- Overlay --}}
-                            <div class="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/50 to-transparent">
-                            </div>
-                        </div>
-                        {{-- Informasi --}}
-                        <div class="p-5 text-center">
-                            <h3
-                                class="text-sm sm:text-md lg:text-lg font-bold
-                                   transition group-hover:text-primary">
-                                {{ $villageOfficial->name }}
-                            </h3>
-                            <div
-                                class="mx-auto my-3 h-1 w-10
-                                    rounded-full bg-primary">
-                            </div>
-                            <p class="text-sm font-medium text-gray-800">
-                                {{ $villageOfficial->position }}
-                            </p>
-                        </div>
-                    </x-ui.cards.card>
+                    <x-ui.cards.village-official-card :village-official="$villageOfficial" />
                 @endforeach
             </div>
         </x-layouts.container>
@@ -100,7 +69,7 @@
         {{-- Informasi Lainnya --}}
         <x-layouts.container>
             {{-- Header Konten --}}
-            <x-ui.texts.public-title title="Informasi Lainnya" />
+            <x-ui.texts.public-title title="Informasi Lainnya" class="uppercase" />
 
             {{-- Isi Konten --}}
             <div class="mt-8 grid grid-cols-1 gap-5 lg:grid-cols-3">
@@ -151,7 +120,6 @@
                                 </p>
                             </div>
                         </div>
-
                         <div class="flex items-start gap-3">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                 stroke-width="1.5" stroke="currentColor" class="size-5 shrink-0 text-primary">
@@ -248,11 +216,9 @@
                             Ikuti media sosial resmi desa untuk mendapatkan informasi terbaru.
                         </p>
                     </div>
-                    <span
-                        class="hidden rounded-full bg-primary/10 px-3 py-1
-                         text-xs font-semibold text-primary sm:inline-block">
+                    <x-ui.badges.badge variant="danger">
                         Official Social Media
-                    </span>
+                    </x-ui.badges.badge>
                 </div>
                 <div class="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
                     {{-- YouTube --}}

@@ -38,12 +38,12 @@ class DatabaseSeeder extends Seeder
         ]);
 
         // Pengguna
-        User::factory(8)->create([
+        User::factory(48)->create([
             'role' => 'Operator',
         ]);
 
         // Membuat 10 kartu keluarga
-        FamilyCard::factory(10)->create()->each(function ($familyCard) {
+        FamilyCard::factory(50)->create()->each(function ($familyCard) {
 
             // Membuat 1 penduduk sebagai kepala keluarga
             $headOfFamily = Resident::factory()->create([
@@ -56,7 +56,7 @@ class DatabaseSeeder extends Seeder
             ]);
 
             // Membuat 2-4 penduduk tambahan dalam KK
-            Resident::factory(fake()->numberBetween(2, 4))->create([
+            Resident::factory(fake()->numberBetween(2, 5))->create([
                 'family_card_id' => $familyCard->id,
             ]);
         });
@@ -110,6 +110,6 @@ class DatabaseSeeder extends Seeder
         }
 
         // Postingan
-        Post::factory(20)->create();
+        Post::factory(50)->create();
     }
 }
